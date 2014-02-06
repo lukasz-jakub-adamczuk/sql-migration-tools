@@ -20,13 +20,15 @@ python sqlDumpSpliter.py filename
 but ensure you list only one parameter in that way. If you want to use more options with script type them with param name and value, like:
 
 ```
-python sqlDumpSpliter.py --file=filename
+python sqlDumpSpliter.py --file=filename --ignore-prefixes=smf_
 ```
 
 #### Avaiable params
 
-* --file=filename
+--file=filename
+
 	Specify SQL dump filename to split definitions and data of found tables
 
-* --ignore-prefixes=prefix
+--ignore-prefixes=prefix
+
 	Type prefix or prefixes divided by comma to ignore specific tables from spliting
