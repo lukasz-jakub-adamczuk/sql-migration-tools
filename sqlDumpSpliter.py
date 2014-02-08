@@ -20,13 +20,19 @@ def parseArgs(args):
 	return options
 
 def isIgnoredTable(table):
-	for prefix in ignored_prefixes:
+	# maybe table included by param
+	if table == include:
+		return False
+	for prefix in excluded_prefixes:
 		if table[0:len(prefix)] == prefix:
 			return True
 	return False
 
 # options
-# --ignore-prefixes
+# --exclude-prefixes
+# --exclude
+# --include-prefixes
+# --include
 # --file
 
 # main code
@@ -44,9 +50,18 @@ if options['file']:
 else:
 	sys.exit(1)
 
-ignored_prefixes = []
-if options['ignore-prefixes']:
-	ignored_prefixes = options['ignore-prefixes'].split(',')
+exluded_prefixes = []
+if 'exclude-prefixes' in options:
+	excluded_prefixes = options['exclude-prefixes'].split(',')
+exclude = ''
+if 'exclude' in options:
+	exclude = options['exclude']
+included_prefixes = []
+if 'include-prefixes' in options:
+	included_prefixes = options['include-prefixes'].split(',')
+include = ''
+if 'include' in options:
+	include = options['include']
 	
 # read dump and split file content
 input = open(filename)
@@ -100,9 +115,9 @@ for line in lines:
 	if copy == True:
 		records += line + "\n"
 
-	if delay == 12:
-		copy = False
-	delay += 1
+	# if delay == 12:
+	# 	copy = False
+	# delay += 1
 
 
 	if save == True:
