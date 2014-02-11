@@ -69,6 +69,7 @@ def mapFields(oldFields, newFields, config, values):
     for new in newFields:
         column = config['fields'][new]['column']
         if isinstance(column, list):
+            # column is a list
             value = ''
             for item in column:
                 if item in oldFields:
@@ -101,6 +102,7 @@ def mapFields(oldFields, newFields, config, values):
             # print str(new) + ' -> ' + str(column) + ' -> ... -> ' + str(default)
             fields.append(value)
         else:
+            # column is a special modifier
             if isinstance(column, str) and column[0] == '<':
                 splits = column[1:-1].split(':')
                 action = splits[0]
@@ -117,8 +119,12 @@ def mapFields(oldFields, newFields, config, values):
                     if key in map:
                         value = "'" + str(map[key]) + "'"
                     else:
-                        print 'Key problem:'
-                        value = "'" + config['fields'][new][default] + "'"
+                        if key != '':
+                            value = "'" + str(key) + "'"
+                        else:
+                            print 'Key problem:'
+                            value = "'" + config['fields'][new]['default'] + "'"
+                    # print value
                     fields.append(value)
             else:
                 key = oldFields[column]
