@@ -1,6 +1,6 @@
 #!/bin/python
 
-import time
+import datetime, time
 import hashlib
 import os, sys
 import shutil
@@ -90,6 +90,11 @@ def mapFields(oldFields, newFields, config, values):
                         for k,v in replace.items():
                             key = key.replace(k, v)
                     value = "'" + str(categories[key]) + "'"
+                if action == 'datetime':
+                    key = values[oldFields[col]]
+                    # print key
+                    value = "'" + str(datetime.datetime.fromtimestamp(float(key)).strftime('%Y-%m-%d %H:%M:%S')) + "'"
+                    # print str(key) + ':' + str(value)
             else:
                 value = default
             # print str(new) + ' -> ' + str(column) + ' -> ... -> ' + str(default)
@@ -117,8 +122,9 @@ def mapFields(oldFields, newFields, config, values):
                         else:
                             print 'Key problem:'
                             value = "'" + config['fields'][new]['default'] + "'"
-                    # print value
-                    fields.append(value)
+                
+                fields.append(value)
+
             else:
                 key = oldFields[column]
                 # print column
