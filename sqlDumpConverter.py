@@ -11,13 +11,6 @@ import yaml.constructor
 
 from slugify import slugify
 
-# import re
-# import unidecode
-
-# def slugify(str):
-#     str = unidecode.unidecode(str).lower()
-#     return re.sub(r'\W+','-',str)
-
 
 try:
     # included in standard lib from Python 2.7
@@ -199,10 +192,11 @@ def parseArgs(args):
 # --output
 
 
-# main code
 if len(sys.argv) < 1:
     print 'Not enough arguments'
     sys.exit(1)
+elif len(sys.argv) == 1:
+    directory = sys.argv[1]
 else:
     options = parseArgs(sys.argv)
 

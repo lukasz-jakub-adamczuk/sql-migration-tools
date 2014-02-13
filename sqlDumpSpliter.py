@@ -20,12 +20,18 @@ def parseArgs(args):
 	return options
 
 def isIgnoredTable(table):
-	# maybe table included by param
+	# maybe table/tables included by param
+	for prefix in included_prefixes:
+		if table[0:len(prefix)] == prefix:
+			return False
 	if table == include:
 		return False
+	# maybe table/table excluded by param
 	for prefix in excluded_prefixes:
 		if table[0:len(prefix)] == prefix:
 			return True
+	if table == exclude:
+		return True
 	return False
 
 # options
@@ -39,6 +45,8 @@ def isIgnoredTable(table):
 if len(sys.argv) < 1:
 	print 'Not enough arguments'
 	sys.exit(1)
+elif len(sys.argv) == 1:
+	filename = sys.argv[1]
 else:
 	options = parseArgs(sys.argv)
 
