@@ -308,4 +308,14 @@ output = open('tables/' +  directory + '/' + 'output.sql', 'w')
 output.write(sql)
 output.close()
 
+# make a new ligther directory to upload
+path = 'queries/' + table
+
+if (os.path.exists(path) == False):
+    os.makedirs(path)
+
+output = open('queries/' +  directory + '/' + 'output.sql', 'w')
+output.write(sql)
+output.close()
+
 
